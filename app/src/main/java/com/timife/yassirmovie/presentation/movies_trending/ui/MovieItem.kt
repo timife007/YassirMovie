@@ -1,4 +1,4 @@
-package com.timife.yassirmovie.presentation.movies_trending
+package com.timife.yassirmovie.presentation.movies_trending.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,8 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -65,14 +63,14 @@ fun MovieItem(
                 )
             }
             Text(
-                text = "English", modifier = Modifier
+                text = if(movie.language == "fr") "French" else "English", modifier = Modifier
                     .padding(top = 5.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .background(color = PurpleGrey80)
                     .scale(0.7f), color = Purple40, fontSize = 18.sp
             )
 
-            Text(text = "2007", fontSize = 12.sp, modifier = Modifier.padding(5.dp))
+            Text(text = movie.releaseDate, fontSize = 12.sp, modifier = Modifier.padding(top =8.dp))
 
         }
     }

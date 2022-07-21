@@ -1,4 +1,4 @@
-package com.timife.yassirmovie.presentation.movies_trending
+package com.timife.yassirmovie.presentation.movies_trending.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
@@ -23,6 +21,8 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.timife.yassirmovie.presentation.destinations.MovieDetailsScreenDestination
+import com.timife.yassirmovie.presentation.movies_trending.TrendingMoviesEvent
+import com.timife.yassirmovie.presentation.movies_trending.TrendingMoviesViewModel
 
 @ExperimentalMaterialApi
 @Composable

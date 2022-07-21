@@ -1,4 +1,4 @@
-package com.timife.yassirmovie.presentation.movie_details
+package com.timife.yassirmovie.presentation.movie_details.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -7,8 +7,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBackIos
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.runtime.Composable
@@ -25,9 +23,12 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.timife.yassirmovie.domain.model.Cast
 import com.timife.yassirmovie.domain.model.MovieDetails
-import com.timife.yassirmovie.presentation.movies_trending.IMAGE_BASE_URL
+import com.timife.yassirmovie.presentation.movie_details.MovieDetailsState
+import com.timife.yassirmovie.presentation.movie_details.MovieDetailsViewModel
+import com.timife.yassirmovie.presentation.movies_trending.ui.IMAGE_BASE_URL
 import com.timife.yassirmovie.ui.theme.*
 
 @ExperimentalMaterialApi
@@ -35,7 +36,8 @@ import com.timife.yassirmovie.ui.theme.*
 @Composable
 fun MovieDetailsScreen(
     id: Int,
-    viewModel: MovieDetailsViewModel = hiltViewModel()
+    viewModel: MovieDetailsViewModel = hiltViewModel(),
+    navigator: DestinationsNavigator
 ) {
     val state = viewModel.state
 
@@ -43,8 +45,8 @@ fun MovieDetailsScreen(
 
         state.movieDetails?.let { details ->
             BackdropScaffold(
-                appBar = { /*TODO*/ },
-                backLayerContent = { MovieDetailBack(movie = details) },
+                appBar = { },
+                backLayerContent = { MovieDetailBack(movie = details,navigator) },
                 frontLayerContent = { MovieDetailFront(state) },
                 backLayerBackgroundColor = Color.Transparent,
                 frontLayerBackgroundColor = MaterialTheme.colors.background,
@@ -68,21 +70,17 @@ fun MovieDetailsScreen(
     }
 }
 
-@Composable
-fun AppBar() {
-
-}
 
 @Composable
-fun MovieDetailBack(movie: MovieDetails) {
+fun MovieDetailBack(movie: MovieDetails,navigator: DestinationsNavigator) {
     val imageLink = IMAGE_BASE_URL + movie.backdropPath
-    Box() {
+    Box {
         AsyncImage(
             model = imageLink, contentDescription = "backdropImage", modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.4f), contentScale = ContentScale.Crop
         )
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = { navigator.navigateUp()}) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "ArrowBack",
@@ -156,14 +154,22 @@ fun MovieDetailFront(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "Duration", style = Typography.subtitle2, color = MaterialTheme.colors.onPrimary)
+                Text(
+                    text = "Duration",
+                    style = Typography.subtitle2,
+                    color = MaterialTheme.colors.onPrimary
+                )
                 Text(text = "${state.movieDetails?.runtime}" + "minutes", style = Typography.body2)
             }
             Column(
                 modifier = Modifier.fillMaxWidth(0.7f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Language", style = Typography.subtitle2, color = MaterialTheme.colors.onPrimary)
+                Text(
+                    text = "Language",
+                    style = Typography.subtitle2,
+                    color = MaterialTheme.colors.onPrimary
+                )
                 if (state.movieDetails?.language == "fr") {
                     Text(text = "French", style = Typography.subtitle2)
                 } else {
@@ -174,7 +180,11 @@ fun MovieDetailFront(
                 modifier = Modifier.fillMaxWidth(0.5f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Rating", style = Typography.subtitle2, color = MaterialTheme.colors.onPrimary)
+                Text(
+                    text = "Rating",
+                    style = Typography.subtitle2,
+                    color = MaterialTheme.colors.onPrimary
+                )
                 Text(text = "PG-13", style = Typography.subtitle2)
             }
         }
@@ -203,13 +213,6 @@ fun MovieDetailFront(
                 style = Typography.h6
             )
             Spacer(modifier = Modifier.weight(1f))
-            Text(
-                text = "See more", modifier = Modifier
-                    .padding(top = 5.dp, end = 15.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(color = Color.Gray)
-                    .scale(0.7f), color = Color.White, fontSize = 18.sp
-            )
         }
 
         LazyRow(
