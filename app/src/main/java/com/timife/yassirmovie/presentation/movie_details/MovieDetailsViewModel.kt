@@ -17,7 +17,7 @@ import javax.inject.Inject
 class MovieDetailsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val moviesRepository: MoviesRepository
-) : ViewModel(){
+) : ViewModel() {
 
     var state by mutableStateOf(MovieDetailsState())
 
@@ -28,22 +28,28 @@ class MovieDetailsViewModel @Inject constructor(
 
             val movieDetails = async { moviesRepository.getMovieDetails(id) }
             val casts = async { moviesRepository.getMovieCasts(id) }
-            when(val details = movieDetails.await()){
+            when (val details = movieDetails.await()) {
                 is Resource.Success -> {
                     state = state.copy(movieDetails = details.data, isLoading = false, error = null)
                 }
                 is Resource.Error -> {
-                    state = state.copy(isLoading = false, error = details.message, movieDetails = null)
+                    state =
+                        state.copy(isLoading = false, error = details.message, movieDetails = null)
                 }
                 else -> Unit
             }
 
-            when(val result = casts.await()){
-                is Resource.Success ->{
-                    state = state.copy(castsList = result.data ?: emptyList(), isLoading = false, error = null)
+            when (val result = casts.await()) {
+                is Resource.Success -> {
+                    state = state.copy(
+                        castsList = result.data ?: emptyList(),
+                        isLoading = false,
+                        error = null
+                    )
                 }
-                is Resource.Error ->{
-                    state = state.copy(isLoading = false,error = result.message, movieDetails = null)
+                is Resource.Error -> {
+                    state =
+                        state.copy(isLoading = false, error = result.message, movieDetails = null)
                 }
                 else -> Unit
             }
