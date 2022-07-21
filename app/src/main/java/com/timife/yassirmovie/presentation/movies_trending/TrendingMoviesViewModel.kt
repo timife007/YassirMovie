@@ -35,14 +35,14 @@ class TrendingMoviesViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         it.data?.let { movies ->
-                            state = state.copy(movies = movies)
+                            state = state.copy(movies = movies,error = null)
                         }
                     }
                     is Resource.Error -> {
                         state = state.copy(error = it.message, isLoading = false)
                     }
                     is Resource.Loading -> {
-                        state = state.copy(isLoading = it.isLoading)
+                        state = state.copy(isLoading = it.isLoading, error = null)
                     }
                 }
             }
