@@ -25,7 +25,4 @@ interface MoviesApi {
         @Path("movie_id") id: Int,
         @Query("api_key") apiKey: String = BuildConfig.APIKEY,
     ):Credits
-
-    companion object {
-    }
 }
