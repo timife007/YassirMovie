@@ -6,6 +6,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.runtime.Composable
@@ -44,6 +47,7 @@ fun MovieDetailsScreen(
                 backLayerContent = { MovieDetailBack(movie = details) },
                 frontLayerContent = { MovieDetailFront(state) },
                 backLayerBackgroundColor = Color.Transparent,
+                frontLayerBackgroundColor = MaterialTheme.colors.background,
                 stickyFrontLayer = true,
                 peekHeight = 260.dp
             ) {
@@ -58,7 +62,7 @@ fun MovieDetailsScreen(
         } else if (state.error != null) {
             Text(
                 text = state.error,
-                color = Color.Gray
+                color = MaterialTheme.colors.onPrimary
             )
         }
     }
@@ -72,11 +76,21 @@ fun AppBar() {
 @Composable
 fun MovieDetailBack(movie: MovieDetails) {
     val imageLink = IMAGE_BASE_URL + movie.backdropPath
-    AsyncImage(
-        model = imageLink, contentDescription = "backdropImage", modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.4f), contentScale = ContentScale.Crop
-    )
+    Box() {
+        AsyncImage(
+            model = imageLink, contentDescription = "backdropImage", modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.4f), contentScale = ContentScale.Crop
+        )
+        IconButton(onClick = { /*TODO*/ }) {
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription = "ArrowBack",
+                modifier = Modifier.size(30.dp),
+                tint = Color.LightGray
+            )
+        }
+    }
 }
 
 @Composable
@@ -92,13 +106,16 @@ fun MovieDetailFront(
                 text = state.movieDetails?.title ?: "",
                 modifier = Modifier.fillMaxWidth(0.8f),
                 style = MaterialTheme.typography.h5,
-                maxLines = 3
+                maxLines = 3,
+                color = MaterialTheme.colors.onBackground
             )
+            Spacer(modifier = Modifier.weight(1f))
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(
                     imageVector = Icons.Outlined.BookmarkBorder,
                     contentDescription = "Bookmark",
-                    modifier = Modifier.size(30.dp)
+                    modifier = Modifier.size(30.dp),
+                    tint = MaterialTheme.colors.onBackground
                 )
             }
         }
@@ -106,13 +123,13 @@ fun MovieDetailFront(
             Icon(
                 imageVector = Icons.Default.StarRate,
                 contentDescription = "",
-                tint = DeepYellow,
+                tint = MaterialTheme.colors.secondary,
                 modifier = Modifier.height(20.dp)
             )
             Text(
                 text = "${state.movieDetails?.voteAverage}" + "/10" + " IMDb",
                 style = Typography.body1,
-                color = Color.Gray,
+                color = MaterialTheme.colors.onPrimary,
                 modifier = Modifier.padding(start = 5.dp)
             )
         }
@@ -139,16 +156,16 @@ fun MovieDetailFront(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "Duration", style = Typography.subtitle2, color = Color.Gray)
+                Text(text = "Duration", style = Typography.subtitle2, color = MaterialTheme.colors.onPrimary)
                 Text(text = "${state.movieDetails?.runtime}" + "minutes", style = Typography.body2)
             }
             Column(
                 modifier = Modifier.fillMaxWidth(0.7f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Language", style = Typography.subtitle2, color = Color.Gray)
+                Text(text = "Language", style = Typography.subtitle2, color = MaterialTheme.colors.onPrimary)
                 if (state.movieDetails?.language == "fr") {
-                    Text(text = "English", style = Typography.subtitle2)
+                    Text(text = "French", style = Typography.subtitle2)
                 } else {
                     Text(text = "English", style = Typography.subtitle2)
                 }
@@ -157,7 +174,7 @@ fun MovieDetailFront(
                 modifier = Modifier.fillMaxWidth(0.5f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "Rating", style = Typography.subtitle2, color = Color.Gray)
+                Text(text = "Rating", style = Typography.subtitle2, color = MaterialTheme.colors.onPrimary)
                 Text(text = "PG-13", style = Typography.subtitle2)
             }
         }
@@ -165,11 +182,12 @@ fun MovieDetailFront(
         Text(
             text = "Description",
             style = Typography.h6,
-            modifier = Modifier.padding(top = 10.dp)
+            modifier = Modifier.padding(top = 10.dp),
+            color = MaterialTheme.colors.onBackground
         )
         Text(
             text = state.movieDetails?.overview ?: "",
-            style = Typography.subtitle2, color = Color.Gray,
+            style = Typography.subtitle2, color = MaterialTheme.colors.onPrimary,
             maxLines = 8,
             overflow = TextOverflow.Ellipsis
         )
@@ -180,10 +198,11 @@ fun MovieDetailFront(
         ) {
             Text(
                 text = "Cast",
-                style = Typography.h6,
-                modifier = Modifier.fillMaxWidth(0.75f)
+                modifier = Modifier,
+                color = MaterialTheme.colors.onBackground,
+                style = Typography.h6
             )
-
+            Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = "See more", modifier = Modifier
                     .padding(top = 5.dp, end = 15.dp)
@@ -226,7 +245,8 @@ fun CastItem(modifier: Modifier = Modifier, cast: Cast) {
                 .widthIn(max = 80.dp),
             style = Typography.body2,
             maxLines = 2,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colors.onBackground
         )
     }
 

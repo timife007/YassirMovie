@@ -6,9 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Alarm
-import androidx.compose.material.icons.outlined.AlarmOn
-import androidx.compose.material.icons.outlined.BookmarkBorder
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBackIos
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,8 +42,8 @@ fun TrendingMoviesScreen(
         Column(modifier = Modifier.fillMaxSize()) {
             Row(modifier = Modifier) {
                 Text(text = "Trending", style = MaterialTheme.typography.h5, modifier = Modifier
-                    .padding(start = 16.dp, top = 16.dp)
-                    .fillMaxWidth(0.75f), color = Color.Black, fontWeight = FontWeight.ExtraBold
+                    .padding(start = 16.dp, top = 16.dp, bottom = 5.dp)
+                    .fillMaxWidth(0.75f), color = MaterialTheme.colors.onBackground, fontWeight = FontWeight.ExtraBold
                 )
             }
 
@@ -81,12 +82,21 @@ fun TrendingMoviesScreen(
 @Composable
 fun TopAppBar(){
     Row(modifier = Modifier.background(Color.Transparent)) {
+        IconButton(onClick = { /*TODO*/ }) {
+            Icon(
+                imageVector = Icons.Default.Menu,
+                contentDescription = "Menu",
+                modifier = Modifier.size(30.dp),
+                tint = MaterialTheme.colors.onBackground
+            )
+        }
         Spacer(modifier = Modifier.weight(1f))
         IconButton(onClick = { /*TODO*/ }) {
             Icon(
-                imageVector = Icons.Outlined.AlarmOn,
-                contentDescription = "Bookmark",
-                modifier = Modifier.size(30.dp)
+                imageVector = Icons.Outlined.NotificationsPaused,
+                contentDescription = "Notification",
+                modifier = Modifier.size(30.dp),
+                tint = MaterialTheme.colors.onBackground
             )
         }
     }

@@ -28,8 +28,6 @@ class TrendingMoviesViewModel @Inject constructor(
             is TrendingMoviesEvent.Refresh ->{
                 getMovies(fetchFromRemote = true)
             }
-            else ->
-                getMovies()
         }
 
     }

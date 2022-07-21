@@ -43,20 +43,24 @@ fun MovieItem(
         )
         Column(modifier = Modifier.padding(start = 20.dp, top = 4.dp)) {
             Text(
-                text = movie.title, style = MaterialTheme.typography.subtitle1, fontSize = 20.sp, maxLines = 3,
-                modifier = Modifier.fillMaxWidth(0.8f), color = Color.Black
+                text = movie.title,
+                style = MaterialTheme.typography.subtitle1,
+                fontSize = 20.sp,
+                maxLines = 3,
+                modifier = Modifier.fillMaxWidth(0.8f),
+                color = MaterialTheme.colors.onBackground
             )
             Row(modifier = Modifier.padding(top = 8.dp)) {
                 Icon(
                     imageVector = Icons.Default.StarRate,
                     contentDescription = "",
-                    tint = DeepYellow,
+                    tint = MaterialTheme.colors.secondary,
                     modifier = Modifier.height(20.dp)
                 )
                 Text(
                     text = "${movie.voteAverage}" + "/10" + " IMDb",
                     style = MaterialTheme.typography.body1,
-                    color = Color.Gray,
+                    color = MaterialTheme.colors.onPrimary,
                     modifier = Modifier.padding(start = 5.dp)
                 )
             }

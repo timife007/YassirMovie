@@ -52,7 +52,7 @@ class MoviesRepositoryImpl @Inject constructor(
             }
 
             remoteVideos?.let { videos ->
-//                dao.clearTrendingMovies()
+                dao.clearTrendingMovies()
                 dao.insertTrendingMovies(
                     videos.map {
                         it.toTrendingMoviesEntity()
