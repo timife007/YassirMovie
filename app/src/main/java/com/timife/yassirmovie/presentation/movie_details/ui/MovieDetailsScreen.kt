@@ -255,10 +255,3 @@ fun CastItem(modifier: Modifier = Modifier, cast: Cast) {
 
 }
 
-@OptIn(ExperimentalMaterialApi::class)
-@Preview
-@Composable
-fun PreviewAll() {
-//    BackdropScaffold(appBar = { /*TODO*/ }, backLayerContent = { MovieDetailBack() }, frontLayerContent = { MovieDetailFront()}, backLayerBackgroundColor = Color.Transparent, stickyFrontLayer = true, peekHeight = 250.dp)
-}
-
