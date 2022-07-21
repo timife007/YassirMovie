@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.timife.yassirmovie.domain.model.TrendingMovie
 import com.timife.yassirmovie.ui.theme.*
+import com.timife.yassirmovie.utils.Constants.IMAGE_BASE_URL
 
-const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500/"
 
 @Composable
 fun MovieItem(
@@ -31,13 +31,13 @@ fun MovieItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         val imageLink = IMAGE_BASE_URL + movie.poster
+
         AsyncImage(
             model = imageLink, contentDescription = "Poster Image",
             modifier = Modifier
                 .clip(RoundedCornerShape(10.dp))
                 .height(140.dp)
                 .width(100.dp)
-
         )
         Column(modifier = Modifier.padding(start = 20.dp, top = 4.dp)) {
             Text(
@@ -62,15 +62,20 @@ fun MovieItem(
                     modifier = Modifier.padding(start = 5.dp)
                 )
             }
+
             Text(
-                text = if(movie.language == "fr") "French" else "English", modifier = Modifier
+                text = if (movie.language == "fr") "French" else "English", modifier = Modifier
                     .padding(top = 5.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .background(color = PurpleGrey80)
                     .scale(0.7f), color = Purple40, fontSize = 18.sp
             )
 
-            Text(text = movie.releaseDate, fontSize = 12.sp, modifier = Modifier.padding(top =8.dp))
+            Text(
+                text = movie.releaseDate,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(top = 8.dp)
+            )
 
         }
     }

@@ -21,7 +21,9 @@ class MoviesRepositoryImpl @Inject constructor(
     private val dao: MovieDao,
     private val api: MoviesApi
 ) : MoviesRepository {
-    override suspend fun getMoviesList(fetchFromRemote: Boolean): Flow<Resource<List<TrendingMovie>>> {
+    override suspend fun getMoviesList(
+        fetchFromRemote: Boolean
+    ): Flow<Resource<List<TrendingMovie>>> {
 
         return flow {
             emit(Resource.Loading(true))
@@ -41,11 +43,16 @@ class MoviesRepositoryImpl @Inject constructor(
                 api.getTrendingMovies().moviesDto?.map {
                     it.toTrendingMovies()
                 }
+
             } catch (e: IOException) {
                 e.printStackTrace()
                 emit(Resource.Error("Error loading movies"))
                 null
             } catch (e: HttpException) {
+                e.printStackTrace()
+                emit(Resource.Error("Error loading movies"))
+                null
+            } catch (e: Exception) {
                 e.printStackTrace()
                 emit(Resource.Error("Error loading movies"))
                 null
@@ -59,10 +66,9 @@ class MoviesRepositoryImpl @Inject constructor(
                     }
                 )
                 emit(Resource.Success(
-                    data =
-                        dao.getAllMovies().map {
-                            it.toTrendingMovies()
-                        }
+                    data = dao.getAllMovies().map {
+                        it.toTrendingMovies()
+                    }
 
                 ))
                 emit(
