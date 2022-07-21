@@ -17,7 +17,6 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,8 +27,8 @@ import com.timife.yassirmovie.domain.model.Cast
 import com.timife.yassirmovie.domain.model.MovieDetails
 import com.timife.yassirmovie.presentation.movie_details.MovieDetailsState
 import com.timife.yassirmovie.presentation.movie_details.MovieDetailsViewModel
-import com.timife.yassirmovie.presentation.movies_trending.ui.IMAGE_BASE_URL
 import com.timife.yassirmovie.ui.theme.*
+import com.timife.yassirmovie.utils.Constants.IMAGE_BASE_URL
 
 @ExperimentalMaterialApi
 @Destination

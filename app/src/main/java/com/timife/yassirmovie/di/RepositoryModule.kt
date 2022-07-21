@@ -10,9 +10,9 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule{
+abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindMoviesRepository(moviesRepositoryImpl: MoviesRepositoryImpl):MoviesRepository
+    abstract fun bindMoviesRepository(moviesRepositoryImpl: MoviesRepositoryImpl): MoviesRepository
 }

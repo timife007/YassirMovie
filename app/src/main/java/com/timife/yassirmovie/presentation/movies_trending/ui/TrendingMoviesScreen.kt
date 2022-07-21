@@ -28,30 +28,38 @@ import com.timife.yassirmovie.presentation.movies_trending.TrendingMoviesViewMod
 @Composable
 @Destination(start = true)
 fun TrendingMoviesScreen(
-    navigator:DestinationsNavigator,
+    navigator: DestinationsNavigator,
     viewModel: TrendingMoviesViewModel = hiltViewModel()
-){
-    
+) {
+
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = viewModel.state.isRefreshing)
     val state = viewModel.state
-    
-     androidx.compose.material.Scaffold(
+
+    Scaffold(
         topBar = { TopAppBar() }
     ) {
 
         Column(modifier = Modifier.fillMaxSize()) {
             Row(modifier = Modifier) {
-                Text(text = "Trending", style = MaterialTheme.typography.h5, modifier = Modifier
-                    .padding(start = 16.dp, top = 16.dp, bottom = 5.dp)
-                    .fillMaxWidth(0.75f), color = MaterialTheme.colors.onBackground, fontWeight = FontWeight.ExtraBold
+                Text(
+                    text = "Trending",
+                    style = MaterialTheme.typography.h5,
+                    modifier = Modifier
+                        .padding(start = 16.dp, top = 16.dp, bottom = 5.dp)
+                        .fillMaxWidth(0.75f),
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight.ExtraBold
                 )
             }
 
             SwipeRefresh(state = swipeRefreshState, onRefresh = {
                 viewModel.onMovieEvent(TrendingMoviesEvent.Refresh)
             }) {
-                LazyColumn(modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(4.dp)){
-                    items(state.movies.size){i ->
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(4.dp)
+                ) {
+                    items(state.movies.size) { i ->
                         val movie = state.movies[i]
                         MovieItem(movie = movie, modifier = Modifier
                             .fillMaxWidth()
@@ -60,7 +68,7 @@ fun TrendingMoviesScreen(
                             }
                             .padding(16.dp)
                         )
-                        if (i < state.movies.size){
+                        if (i < state.movies.size) {
                             Divider(modifier = Modifier.padding(horizontal = 16.dp))
                         }
 
@@ -72,15 +80,20 @@ fun TrendingMoviesScreen(
 
     }
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        if(state.isLoading){
+        if (state.isLoading) {
             CircularProgressIndicator()
+        } else if (state.error != null) {
+            Text(
+                text = state.error,
+                color = MaterialTheme.colors.onPrimary
+            )
         }
     }
-
 }
+
 @Preview
 @Composable
-fun TopAppBar(){
+fun TopAppBar() {
     Row(modifier = Modifier.background(Color.Transparent)) {
         IconButton(onClick = { /*TODO*/ }) {
             Icon(
