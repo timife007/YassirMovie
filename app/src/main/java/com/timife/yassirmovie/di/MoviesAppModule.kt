@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.timife.yassirmovie.data.local.MovieDao
 import com.timife.yassirmovie.data.local.MovieDatabase
 import com.timife.yassirmovie.data.remote.MoviesApi
+import com.timife.yassirmovie.utils.Constants.BASE_URL_LIST
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,20 +21,23 @@ import javax.inject.Singleton
 object MoviesAppModule {
     @Provides
     @Singleton
-    fun provideMoviesApi():MoviesApi{
+    fun provideMoviesApi(): MoviesApi {
         return Retrofit.Builder()
-            .baseUrl(MoviesApi.BASE_URL_LIST)
+            .baseUrl(BASE_URL_LIST)
             .addConverterFactory(MoshiConverterFactory.create())
             .client(
                 OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BASIC }).build())
+                    .addInterceptor(HttpLoggingInterceptor().apply {
+                        level = HttpLoggingInterceptor.Level.BASIC
+                    }).build()
+            )
             .build()
             .create(MoviesApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideMoviesDatabase(app:Application):MovieDatabase{
+    fun provideMoviesDatabase(app: Application): MovieDatabase {
         return Room.databaseBuilder(
             app,
             MovieDatabase::class.java,
@@ -45,7 +49,7 @@ object MoviesAppModule {
     @Singleton
     fun provideMoviesDao(
         moviesDatabase: MovieDatabase
-    ):MovieDao{
+    ): MovieDao {
         return moviesDatabase.dao
     }
 }
