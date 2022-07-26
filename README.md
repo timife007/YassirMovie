@@ -24,4 +24,4 @@ This App demonstrates modern Android development with Jetpack Compose Hilt, Coro
 * Repository Pattern
 * Retrofit2 & OkHttp3 - Construct the REST APIs.
 * Moshi - A modern JSON library for Kotlin and Java.
-* Material-Components - Material design components for building ripple animation, and CardView.
+* Material-Components 
