@@ -61,6 +61,9 @@ fun TrendingMoviesScreen(
                 ) {
                     items(state.movies.size) { i ->
                         val movie = state.movies[i]
+                        if (i >= state.movies.size - 1 && !state.endReached && !state.isLoading) {
+                            viewModel.loadNextItems()
+                        }
                         MovieItem(movie = movie, modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
@@ -72,6 +75,18 @@ fun TrendingMoviesScreen(
                             Divider(modifier = Modifier.padding(horizontal = 16.dp))
                         }
 
+                    }
+                    item {
+                        if (state.isLoading) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                CircularProgressIndicator()
+                            }
+                        }
                     }
                 }
 

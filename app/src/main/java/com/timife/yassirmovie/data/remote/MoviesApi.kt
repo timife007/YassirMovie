@@ -4,6 +4,7 @@ import com.timife.yassirmovie.BuildConfig
 import com.timife.yassirmovie.data.remote.model.movie_detail.MovieDetailDto
 import com.timife.yassirmovie.data.remote.model.movie_detail.cast.Credits
 import com.timife.yassirmovie.data.remote.model.trendinglist.TrendingList
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -11,7 +12,14 @@ import retrofit2.http.Query
 interface MoviesApi {
     @GET("discover/movie?language=en-US&sort_by=popularity.desc")
     suspend fun getTrendingMovies(
-        @Query("api_key") apiKey: String = BuildConfig.APIKEY
+        @Query("api_key") apiKey: String = BuildConfig.APIKEY,
+        @Query("page") page:Int
+    ): TrendingList
+
+    @GET("discover/movie?language=en-US&sort_by=popularity.desc")
+    suspend fun getMovies(
+        @Query("api_key") apiKey: String = BuildConfig.APIKEY,
+        @Query("page") page:Int
     ): TrendingList
 
     @GET("movie/{movie_id}?language=en-US")

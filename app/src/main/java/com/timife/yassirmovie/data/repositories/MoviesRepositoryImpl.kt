@@ -11,8 +11,10 @@ import com.timife.yassirmovie.domain.model.MovieDetails
 import com.timife.yassirmovie.domain.model.TrendingMovie
 import com.timife.yassirmovie.domain.repositories.MoviesRepository
 import com.timife.yassirmovie.utils.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
@@ -22,7 +24,8 @@ class MoviesRepositoryImpl @Inject constructor(
     private val api: MoviesApi
 ) : MoviesRepository {
     override suspend fun getMoviesList(
-        fetchFromRemote: Boolean
+        fetchFromRemote: Boolean,
+        page: Int
     ): Flow<Resource<List<TrendingMovie>>> {
 
         return flow {
@@ -40,7 +43,7 @@ class MoviesRepositoryImpl @Inject constructor(
             }
 
             val remoteVideos = try {
-                api.getTrendingMovies().moviesDto?.map {
+                api.getTrendingMovies(page = page).moviesDto?.map {
                     it.toTrendingMovies()
                 }
 
@@ -69,7 +72,6 @@ class MoviesRepositoryImpl @Inject constructor(
                     data = dao.getAllMovies().map {
                         it.toTrendingMovies()
                     }
-
                 ))
                 emit(
                     Resource.Loading(
@@ -79,6 +81,7 @@ class MoviesRepositoryImpl @Inject constructor(
             }
         }
     }
+
 
     override suspend fun getMovieDetails(id: Int): Resource<MovieDetails> {
         return try {
