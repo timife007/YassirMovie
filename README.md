@@ -20,7 +20,7 @@ This App demonstrates modern Android development with Jetpack Compose, Hilt, Cor
      - ViewModel - Manages UI-related data holder and lifecycle aware. Allows data to survive configuration changes such as screen rotations.
      - Room Persistence - Constructs Database by providing an abstraction layer over SQLite to allow fluent database access.
 * Architecture
-     - MVVM Architecture (Model-View-ViewModel)
+     - MVVM Architecture (Model-View-Intent)
 * Repository Pattern
 * Retrofit2 & OkHttp3 - Construct the REST APIs.
 * Moshi - A modern JSON library for Kotlin and Java.
