@@ -1,6 +1,6 @@
 # YassirMovie
 
-This App demonstrates modern Android development with Jetpack Compose, Hilt, Coroutines,[RaamCosta](https://github.com/raamcosta/compose-destinations) Compose Navigation, Kotlin Flow, Jetpack (Room, ViewModel), and Material Design based on MVI architecture using  [The Movie DB](https://developers.themoviedb.org/3/discover/movie-discover)
+This App demonstrates modern Android development with Jetpack Compose, Hilt, Coroutines, [RaamCosta](https://github.com/raamcosta/compose-destinations) Compose Navigation, Kotlin Flow, Jetpack (Room, ViewModel), and Material Design based on MVI architecture using  [The Movie DB](https://developers.themoviedb.org/3/discover/movie-discover)
 
 <img src="https://user-images.githubusercontent.com/59525449/180326559-cc082809-3df2-4c81-8019-51235dde5621.png" width="400" height="800">.                  <img src="https://user-images.githubusercontent.com/59525449/180326611-952d4f16-25cd-4c80-a140-0231a60afefc.png" width="400" height="800">
 
